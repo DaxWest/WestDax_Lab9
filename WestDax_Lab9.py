@@ -71,6 +71,8 @@ def eqn_advection(method, N, h, tau, v_max, rho_max):
         iplot += 1
     return tplot, iplot, rplot, xplot
 
+tplot, iplot, rplot, xplot = eqn_advection(method, N, h, tau, v_max, rho_max)
+
 # * Graph density versus position and time as wire-mesh plot
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
