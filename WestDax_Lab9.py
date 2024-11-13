@@ -6,15 +6,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # * Select numerical parameters (time step, grid spacing, etc.).
-method = input('Choose a numerical method by entering the corresponding integer, 1) FTCS; 2) Lax; 3) Lax-Wendroff :')
-N = int(input('Enter the number of grid points: '))
-L = 400.  # System size (meters)
+method = int(input('Choose a numerical method by entering the corresponding integer, 1) FTCS; 2) Lax; 3) Lax-Wendroff :'))
+N = 600 #int(input('Enter the number of grid points: '))
+L = 1200  # System size (meters)
 h = L / N  # Grid spacing for periodic boundary conditions
 v_max = 25.  # Maximum car speed (m/s)
-print('Suggested timestep is ', h / v_max)
-tau = float(input('Enter time step (tau): '))
-print('Last car starts moving after ', (L / 4) / (v_max * tau), 'steps')
-nstep = int(input('Enter number of steps: '))
+print(f'Suggested timestep is , {h / v_max}')
+tau = h/v_max #float(input('Enter time step (tau): '))
+print(f'Last car starts moving after , {(L / 4) / (v_max * tau)}, steps')
+nstep = 1500 #int(input('Enter number of steps: '))
 rho_max = 1.0  # Maximum density
 
 def eqn_advection(method, N, h, tau, v_max, rho_max):
@@ -69,7 +69,7 @@ def eqn_advection(method, N, h, tau, v_max, rho_max):
         rplot[:, iplot] = np.copy(rho)
         tplot[iplot] = tau * (istep + 1)
         iplot += 1
-    return
+    return tplot, iplot, rplot, xplot
 
 # * Graph density versus position and time as wire-mesh plot
 from matplotlib import cm
