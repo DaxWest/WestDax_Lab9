@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # * Select numerical parameters (time step, grid spacing, etc.).
-method = int(input('Choose a numerical method by entering the corresponding integer, 1) FTCS; 2) Lax; 3) Lax-Wendroff :'))
+method = 2 #int(input('Choose a numerical method by entering the corresponding integer, 1) FTCS; 2) Lax; 3) Lax-Wendroff :'))
 N = 600 #int(input('Enter the number of grid points: '))
 L = 1200  # System size (meters)
 h = L / N  # Grid spacing for periodic boundary conditions
@@ -58,7 +58,7 @@ def eqn_advection(method, N, h, tau, v_max, rho_max):
         if method == 1:  ### FTCS method ###
             rho[:] = rho[:] - coeff * (Flow[ip] - Flow[im])
         elif method == 2:  ### Lax method ###
-            rho[:] = .5 * (rho[ip] + rho[im]) - coeff * (Flow[ip] - Flow[im])
+            rho[:] = 0.5 * (rho[ip] + rho[im]) - coeff * (Flow[ip] - Flow[im])
         else:  ### Lax-Wendroff method ###
             cp[:] = v_max * (1 - (rho[ip] + rho[:]) / rho_max);
             cm[:] = v_max * (1 - (rho[:] + rho[im]) / rho_max);
@@ -76,17 +76,17 @@ tplot, iplot, rplot, xplot = eqn_advection(method, N, h, tau, v_max, rho_max)
 # * Graph density versus position and time as wire-mesh plot
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
-
-fig = plt.figure()
-ax = fig.add_subplot(projection='3d')
-Tp, Xp = np.meshgrid(tplot[0:iplot], xplot)
-ax.plot_surface(Tp, Xp, rplot[:, 0:iplot], rstride=1, cstride=1, cmap=cm.gray)
-ax.view_init(elev=30., azim=10.)
-ax.set_xlabel('t')
-ax.set_ylabel('x')
-ax.set_zlabel('rho')
-ax.set_title('Density versus position and time')
-plt.show()
+#
+# fig = plt.figure()
+# ax = fig.add_subplot(projection='3d')
+# Tp, Xp = np.meshgrid(tplot[0:iplot], xplot)
+# ax.plot_surface(Tp, Xp, rplot[:, 0:iplot], rstride=1, cstride=1, cmap=cm.gray)
+# ax.view_init(elev=30., azim=10.)
+# ax.set_xlabel('t')
+# ax.set_ylabel('x')
+# ax.set_zlabel('rho')
+# ax.set_title('Density versus position and time')
+# plt.show()
 
 # * Graph contours of density versus position and time.
 levels = np.linspace(0., 1., num=11)
