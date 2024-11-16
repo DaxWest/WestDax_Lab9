@@ -18,6 +18,16 @@ nstep = 1500 #int(input('Enter number of steps: '))
 rho_max = 1.0  # Maximum density
 
 def eqn_advection(method, N, h, tau, v_max, rho_max):
+    '''
+
+    :param method: Different possible solution methods. Note: only Lax method gives a valid answer
+    :param N: Number of grid points
+    :param h: Grid spacing for periodic boundary conditions
+    :param tau: Time step
+    :param v_max: Maximum speed of "objects"
+    :param rho_max: Maximum density of "objects"
+    :return: tplot, iplot, rplot, xplot
+    '''
     coeff = tau / (2 * h)  # Coefficient used by all schemes
     coefflw = tau ** 2 / (2 * h ** 2)  # Coefficient used by Lax-Wendroff
 
@@ -73,20 +83,7 @@ def eqn_advection(method, N, h, tau, v_max, rho_max):
 
 tplot, iplot, rplot, xplot = eqn_advection(method, N, h, tau, v_max, rho_max)
 
-# * Graph density versus position and time as wire-mesh plot
-from matplotlib import cm
-from mpl_toolkits.mplot3d import Axes3D
-#
 fig = plt.figure()
-# ax = fig.add_subplot(projection='3d')
-# Tp, Xp = np.meshgrid(tplot[0:iplot], xplot)
-# ax.plot_surface(Tp, Xp, rplot[:, 0:iplot], rstride=1, cstride=1, cmap=cm.gray)
-# ax.view_init(elev=30., azim=10.)
-# ax.set_xlabel('t')
-# ax.set_ylabel('x')
-# ax.set_zlabel('rho')
-# ax.set_title('Density versus position and time')
-# plt.show()
 time = np.linspace(0, nstep, 10, True)
 for i in time:
     plt.plot(xplot, rplot)
