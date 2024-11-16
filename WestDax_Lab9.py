@@ -77,7 +77,7 @@ tplot, iplot, rplot, xplot = eqn_advection(method, N, h, tau, v_max, rho_max)
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 #
-# fig = plt.figure()
+fig = plt.figure()
 # ax = fig.add_subplot(projection='3d')
 # Tp, Xp = np.meshgrid(tplot[0:iplot], xplot)
 # ax.plot_surface(Tp, Xp, rplot[:, 0:iplot], rstride=1, cstride=1, cmap=cm.gray)
@@ -87,6 +87,13 @@ from mpl_toolkits.mplot3d import Axes3D
 # ax.set_zlabel('rho')
 # ax.set_title('Density versus position and time')
 # plt.show()
+time = np.linspace(0, nstep, 10, True)
+for i in time:
+    plt.plot(xplot, rplot)
+plt.title('Snapshot')
+plt.xlabel('x')
+plt.ylabel('density')
+plt.show()
 
 # * Graph contours of density versus position and time.
 levels = np.linspace(0., 1., num=11)
