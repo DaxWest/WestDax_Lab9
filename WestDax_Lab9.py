@@ -51,9 +51,9 @@ def eqn_advection(method, N, h, tau, v_max, rho_max):
 
     # * Initialize plotting variables.
     iplot = 1
-    xplot = (np.arange(N) - 1 / 2.) * h - L / 2.  # Record x scale for plot
-    rplot = np.empty((N, nstep + 1))
-    tplot = np.empty(nstep + 1)
+    xplot = (np.arange(N) - 1 / 2.) * h - L / 2.  # Record x for plot
+    rplot = np.empty((N, nstep + 1)) # Record density for plot
+    tplot = np.empty(nstep + 1) # Record time for plot
     rplot[:, 0] = np.copy(rho)  # Record the initial state
     tplot[0] = 0  # Record the initial time (t=0)
 
@@ -85,18 +85,18 @@ tplot, iplot, rplot, xplot = eqn_advection(method, N, h, tau, v_max, rho_max)
 
 fig = plt.figure()
 time = np.linspace(0, nstep, 10, True)
-for i in time:
+for i in time: #loop to show snapshots
     plt.plot(xplot, rplot)
-plt.title('Snapshot')
-plt.xlabel('x')
-plt.ylabel('density')
+plt.title('Snapshot of Position vs Density for Given Time')
+plt.xlabel('Position (x)')
+plt.ylabel('Density (rho)')
 plt.show()
 
 # * Graph contours of density versus position and time.
 levels = np.linspace(0., 1., num=11)
 ct = plt.contour(xplot, tplot, np.flipud(np.rot90(rplot)), levels)
 plt.clabel(ct, fmt='%1.2f')
-plt.xlabel('x')
-plt.ylabel('time')
-plt.title('Density contours')
+plt.xlabel('Position (x)')
+plt.ylabel('Time (t)')
+plt.title('Density Contours for Position vs Time')
 plt.show()
