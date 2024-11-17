@@ -84,15 +84,17 @@ def eqn_advection(method, N, h, tau, v_max, rho_max):
 tplot, iplot, rplot, xplot = eqn_advection(method, N, h, tau, v_max, rho_max)
 
 fig = plt.figure()
-time = np.linspace(0, nstep, 10, True)
+# Graph of snapshots of density versus position
+time = np.linspace(0, nstep, 5, True)
 for i in time: #loop to show snapshots
-    plt.plot(xplot, rplot)
+    plt.plot(xplot, rplot[:,int(i)], label=f'time = {i*tau}s')
 plt.title('Snapshot of Position vs Density for Given Time')
 plt.xlabel('Position (x)')
 plt.ylabel('Density (rho)')
+plt.legend()
 plt.show()
 
-# * Graph contours of density versus position and time.
+# Graph contours of density versus position and time.
 levels = np.linspace(0., 1., num=11)
 ct = plt.contour(xplot, tplot, np.flipud(np.rot90(rplot)), levels)
 plt.clabel(ct, fmt='%1.2f')
