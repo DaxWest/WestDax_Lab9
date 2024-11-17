@@ -5,16 +5,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# * Select numerical parameters (time step, grid spacing, etc.).
-method = 2 #int(input('Choose a numerical method by entering the corresponding integer, 1) FTCS; 2) Lax; 3) Lax-Wendroff :'))
-N = 600 #int(input('Enter the number of grid points: '))
+#initial parameters
+method = 2 #corresponding integers are 1) FTCS, 2) Lax, 3) Lax-Wendroff
+N = 600 #number of grid points
 L = 1200  # System size (meters)
 h = L / N  # Grid spacing for periodic boundary conditions
 v_max = 25.  # Maximum car speed (m/s)
-print(f'Suggested timestep is , {h / v_max}')
-tau = h/v_max #float(input('Enter time step (tau): '))
-print(f'Last car starts moving after , {(L / 4) / (v_max * tau)}, steps')
-nstep = 1500 #int(input('Enter number of steps: '))
+tau = h/v_max #timestep
+nstep = 1500 #number of steps
 rho_max = 1.0  # Maximum density
 
 def eqn_advection(method, N, h, tau, v_max, rho_max):
@@ -65,11 +63,11 @@ def eqn_advection(method, N, h, tau, v_max, rho_max):
 
         # * Compute new values of density using
         #  FTCS, Lax or Lax-Wendroff method.
-        if method == 1:  ### FTCS method ###
+        if method == 1:  ### FTCS method ### #this method does not currently work
             rho[:] = rho[:] - coeff * (Flow[ip] - Flow[im])
         elif method == 2:  ### Lax method ###
             rho[:] = 0.5 * (rho[ip] + rho[im]) - coeff * (Flow[ip] - Flow[im])
-        else:  ### Lax-Wendroff method ###
+        else:  ### Lax-Wendroff method ### #this method does not currently work
             cp[:] = v_max * (1 - (rho[ip] + rho[:]) / rho_max);
             cm[:] = v_max * (1 - (rho[:] + rho[im]) / rho_max);
             rho[:] = rho[:] - coeff * (Flow[ip] - Flow[im]) + coefflw * (
@@ -81,8 +79,10 @@ def eqn_advection(method, N, h, tau, v_max, rho_max):
         iplot += 1
     return tplot, iplot, rplot, xplot
 
+#using the function to get the values for plotting
 tplot, iplot, rplot, xplot = eqn_advection(method, N, h, tau, v_max, rho_max)
 
+#plotting
 fig = plt.figure()
 # Graph of snapshots of density versus position
 time = np.linspace(0, nstep, 5, True)
