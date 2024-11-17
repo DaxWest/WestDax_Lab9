@@ -1,6 +1,8 @@
 # traffic - Program to solve the generalized Burger
 # equation for the traffic at a stop light problem
 
+#Repository link: https://github.com/DaxWest/WestDax_Lab9.git
+
 # Set up configuration options and special features
 import numpy as np
 import matplotlib.pyplot as plt
